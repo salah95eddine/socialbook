@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Social</title>
+
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!--  Main JS -->
+    <script src="main.js" defer></script>
+</head>
+<body class="" id="body">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg bg-primary bg-dark-tertiary shadow rounded w-75 m-auto">
+            <div class="container-fluid">
+              <a class="navbar-brand fs-2" href="index.html"><span style="color: #063e89;border: 3px solid white;padding: 2px;">S</span><span class="text-light">ocialBook</span></a>
+              <!--responsive nav-->
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--   ----responsive nav-->
+
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active fs-5 fw-medium d-flex align-items-center gap-1" aria-current="page" href="index.html">Home</a>
+                  </li> 
+                  <li class="nav-item" >
+                    <a class="nav-link fs-5 fw-medium"   onclick="profileClicked()" style="cursor: pointer;">Profile</a>
+                  </li>
+                </ul>
+                <div class="">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex gap-3 align-items-center">
+                        <li class="nav-item">
+                          <img id="user-img" onclick="profileClicked()"class="border border-light hide" src="" alt=".." style="cursor: pointer;width: 40px;height: 40px;border-radius: 50%;">
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link fs-5 fw-medium" id="username-home" onclick="profileClicked()" style="cursor: pointer;"></a>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" class="btn btn-danger hide" id="logout-btn" onclick="logout()">Logout</button>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal" id="login-btn">Login</button>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#registreModal" id="registre-btn">Register</button>
+                        </li>
+                      </ul>
+                </div>
+              </div>
+            </div>
+          </nav>
+          <!-- registre modal -->
+        <div class="modal fade modal-dialog" id="registreModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Registre</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <div class="mb-3">
+                            <label for="registrePhoto" class="form-label">Upload your photo here</label>
+                            <input class="form-control" type="file" id="registrePhoto">
+                        </div>
+
+                        <label for="registreUsernameInput" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="registreUsernameInput">
+                        <label for="registreNameInput" class="form-label">Name </label>
+                        <input type="text" class="form-control" id="registreNameInput" >
+                        <label for="registrePasswordInput" class="form-label">Password</label>
+                        <input type="password" id="registrePasswordInput" class="form-control" aria-describedby="passwordHelpBlock">
+                        <div id="passwordHelpBlock" class="form-text">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" onclick="registreBtnClicked()">Registre</button>
+                </div>
+            </div>
+            </div>
+        </div>
+          <!-- ------registre modal -->
+          
+          
+          <!-- add Post Btn-->
+          <div class="addPost">
+            <svg onclick="addBtnClicked()" id="addPostBtn" style="position: fixed; z-index: 999999; bottom: 50; left: 50;cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-plus-square text-primary hide shadow" viewBox="0 0 16 16">
+              <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+            </svg>
+          </div>
+          <!-- ----- add Post Btn-->
+
+           <!-- Login alert  -->
+           <div id="successAlert" class="show fade" style="position: fixed; z-index: 999999; bottom: 0; right: 0;"></div>
+           <!-- ------Login alert  -->
+
+           <!-- Logout alert  -->
+           <div id="logoutSuccessAlert" class="show fade" style="position: fixed; z-index: 999999; bottom: 0; right: 0;"></div>
+           <!-- -------Logout alert  -->
+
+           <!-- registre faild alert  -->
+           <div id="registreFailed" class="show fade" style="position: fixed; z-index: 999999; bottom: 0; right: 0;"></div>
+           <!-- -------registre faild alert  -->
+           <!-- create post faild alert  -->
+           <div id="createPostFailed" class="show fade" style="position: fixed; z-index: 999999; bottom: 0; right: 0;"></div>
+           <!-- -------create post faild alert  -->
+           <!-- create Comment faild alert  -->
+           <div id="createCommentFailed" class="show fade" style="position: fixed; z-index: 999999; bottom: 0; right: 0;"></div>
+           <!-- -------create Comment faild alert  -->
+
+          <!-- Login modal -->
+        <div class="modal fade modal-dialog" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="usernameInput" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="usernameInput" value="yarob99">
+                        <label for="passwordInput" class="form-label">Password</label>
+                        <input type="password" id="passwordInput" class="form-control" aria-describedby="passwordHelpBlock" value="123456">
+                        <div id="passwordHelpBlock" class="form-text">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-target="#loginModal" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" onclick="loginBtnClicked()">Login</button>
+                </div>
+            </div>
+            </div>
+        </div>
+          <!-- -------Login modal -->
+
+          <!-- add post modal -->
+        <div class="modal fade modal-dialog" id="addPostModal" tabindex="-1" aria-labelledby="post-modal-title" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="post-modal-title">Create Post</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <div class="mb-3">
+                          <label for="postImg" class="form-label">Upload your photo here</label>
+                          <input class="form-control" type="file" id="postImg">
+                        </div>
+                        <label for="postTitleInput" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="postTitleInput">
+                        <label for="postBodyInput" class="form-label">Body</label>
+                        <input type="text" id="postBodyInput" class="form-control" aria-describedby="passwordHelpBlock">
+                        <div id="passwordHelpBlock" class="form-text">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-target="#addPostModal" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" onclick="createNewPost()">Create Post</button>
+                <input type="hidden" id="post-id-input" value="">
+                </div>
+            </div>
+            </div>
+        </div>
+        
+          <!-- -------add post modal -->
+          <!-- delete post modal -->
+        <div class="modal fade modal-dialog" id="deletePostModal" tabindex="-1" aria-labelledby="post-modal-title" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="post-modal-title">Are you sure you want to delete this post ?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-target="#deletePostModal" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" onclick="confirmPostDelete()">Yes, Delete</button>
+                <input type="hidden" id="delete-post-id-input" value="">
+                </div>
+            </div>
+            </div>
+        </div>
+        
+          <!-- -------delete post modal -->
+
+          <!-- mode switch -->
+
+          <!-- mode switch -->
+
+
+         <!--  posts -->
+          <div class="content w-75 m-auto" id="posts">
+            
+          </div>
+          <!--  posts -->
+    </div>
+        
+    <!-- LOADER-->
+    <div id="loader" style="position: fixed;z-index: 999; left: 0; right: 0; margin: auto; top: 0; bottom: 0; margin: auto;" class="d-flex justify-content-center align-items-center">
+      <div class="loader">
+        <div class="justify-content-center jimu-primary-loading"></div>
+      </div>
+    </div>
+    <!-- LOADER-->
+
+    <!-- top button -->
+    <div id="topButton" class="topButton">
+      <img src="icons8-top-48.png" alt="">
+  </div>
+    <!-- top button -->
+</body>
+<script>
+
+</script>
+
+</html>
